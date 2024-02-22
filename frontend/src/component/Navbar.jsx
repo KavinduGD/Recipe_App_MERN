@@ -23,7 +23,7 @@ function Navbar() {
           </div>
         </div>
         <div className="right w-[100%] sm:w-auto px-[10%]">
-          <div className="flex flex-col sm:flex-row gap-[10px] sm:gap-[50px] w-[100%] px-[20%] sm:px-[0] font-roboto text-[18px] ">
+          <div className="flex flex-col sm:flex-row gap-[10px] sm:gap-[50px] w-[100%] px-[20%] sm:px-[0] font-crimsonPro text-[18px] ">
             <NavLink
               to="/"
               className={({ isActive }) =>

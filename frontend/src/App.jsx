@@ -7,7 +7,7 @@ function App() {
     <>
       <BrowserRouter>
         <Navbar />
-        <div className="w-full sm:w-[80%] ml-auto mr-auto">
+        <div className="w-full sm:w-[1000px] ml-auto mr-auto">
           <Routes>
             <Route path="/" element={<Home />} />
             {/* <Route path="/add" element={<AddRecipe />} /> */}
