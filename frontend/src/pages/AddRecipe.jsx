@@ -5,17 +5,19 @@ import { RiDeleteBin5Fill } from "react-icons/ri";
 function AddRecipe() {
   const [recipeImage, setRecipeImage] = useState();
   return (
-    <div className="flex flex-col items-center sm:items-start">
-      <p className="text-[40px] font-crimsonPro font-medium">Add Your Recipe</p>
-      <div className="flex flex-col sm:flex-row ">
-        <div>
-          <div className="w-[400px]">
-            <label htmlFor="recipeImage" className="w-fit">
+    <div className="flex flex-col ">
+      <p className="text-[40px] font-crimsonPro font-medium flex justify-center sm:justify-start">
+        Add Your Recipe
+      </p>
+      <div className="flex flex-col sm:flex-row items-stretch ">
+        <div className="flex justify-center sm:justify-start">
+          <div className="w-[90%] sm:w-[400px]">
+            <label htmlFor="recipeImage" className="w-full">
               <div
                 className={`${
                   recipeImage
                     ? "border-[1px] border-solid rounded-[6px] border-gray-300"
-                    : "border-2 border-dashed rounded-[8px] border-main_blue"
+                    : "border-2 border-dashed rounded-[8px] border-[#3D2D30]"
                 }  h-[300px]  flex items-center justify-center overflow-hidden px-3 py-3`}
               >
                 {recipeImage ? (
@@ -26,7 +28,7 @@ function AddRecipe() {
                   />
                 ) : (
                   <div className="flex flex-col items-center font-roboto">
-                    <MdCloudUpload className="text-[42px] text-main_blue" />
+                    <MdCloudUpload className="text-[42px] text-[#3D2D30]" />
                     <p className="text-gray-800 text-[20px] font-semibold">
                       Click here to upload the image
                     </p>
@@ -59,7 +61,8 @@ function AddRecipe() {
             />
           </div>
         </div>
-        <div>form</div>
+
+        <div className="flex-1">form</div>
       </div>
     </div>
   );
