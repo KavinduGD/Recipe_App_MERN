@@ -2,17 +2,27 @@ import React, { useState } from "react";
 import { MdCloudUpload } from "react-icons/md";
 import { FaImage } from "react-icons/fa";
 import { RiDeleteBin5Fill } from "react-icons/ri";
+import recipeAxios from "../baseUrl";
+
 function AddRecipe() {
   const [recipeImage, setRecipeImage] = useState();
-  const [Ingredients, setIngredients] = useState([
-    { name: "Salt1", amount: "30g" },
-    { name: "Salt2", amount: "30g" },
-    { name: "Salt3", amount: "30g" },
-  ]);
+  const [Ingredients, setIngredients] = useState([]);
   const [ingredientName, setIngredientName] = useState("");
   const [ingredientAmount, setIngredientAmount] = useState("");
 
-  console.log(Ingredients);
+  const createRecipe = async () => {
+    console.log("createRecipe");
+    const recipeName = document.getElementById("recipeName").value;
+    const recipeDes = document.getElementById("recipeDes").value;
+    const formData = new FormData();
+    formData.append("id", 3);
+    formData.append("name", recipeName);
+    formData.append("description", recipeDes);
+    formData.append("ingredients", JSON.stringify(Ingredients));
+    formData.append("image", recipeImage);
+    const res = await recipeAxios.post("/api/recipes/", formData);
+  };
+
   return (
     <div className="flex flex-col font-roboto ">
       <p className="text-[40px] font-crimsonPro font-medium flex justify-center sm:justify-start">
@@ -167,7 +177,10 @@ function AddRecipe() {
         </div>
       </div>
       <div className="flex   justify-center sm:justify-end px-[5%] sm:px-0 ">
-        <button className="text-white bg-[#3D2D30] w-[100%]  sm:w-[200px]">
+        <button
+          className="text-white bg-[#3D2D30] w-[100%]  sm:w-[200px] "
+          onClick={createRecipe}
+        >
           Add Recipe
         </button>
       </div>
