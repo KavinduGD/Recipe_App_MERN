@@ -2,14 +2,14 @@ import React from "react";
 import logo from "../images/logo.png";
 import { NavLink } from "react-router-dom";
 
-const activeStyle = "flex justify-center border-b-[3px] px-2 border-red-500";
+const activeStyle = "flex justify-center border-b-[3px] px-2 border-[#3d2d30]";
 const inactiveStyle = "flex justify-center";
 
 function Navbar() {
   return (
     <div>
       <div className="flex  justify-between items-center flex-col sm:flex-row border-b-[1px]  pb-[5px] gap-[10px] sm:gap-[0]">
-        <div className="left w-full sm:w-auto flex justify-center sm:px-[10%] border-b-2 sm:border-b-0 border-b-[#242020]">
+        <div className="left w-full sm:w-auto flex justify-center sm:pl-[15%] border-b-2 sm:border-b-0 border-b-[#242020]">
           <div className=" flex items-center gap-2 sm:gap-3">
             <div className="pt-[5px]  ">
               <img src={logo} alt="logo" className="w-[90px] sm:w-100px] " />
@@ -22,7 +22,7 @@ function Navbar() {
             </p>
           </div>
         </div>
-        <div className="right w-[100%] sm:w-auto px-[10%]">
+        <div className="right w-[100%] sm:w-auto pr-[10%]">
           <div className="flex flex-col sm:flex-row gap-[10px] sm:gap-[50px] w-[100%] px-[20%] sm:px-[0] font-crimsonPro text-[18px] ">
             <NavLink
               to="/"
@@ -33,7 +33,7 @@ function Navbar() {
               Home
             </NavLink>
             <NavLink
-              to="/add"
+              to="/add-recipe"
               className={({ isActive }) =>
                 isActive ? activeStyle : inactiveStyle
               }

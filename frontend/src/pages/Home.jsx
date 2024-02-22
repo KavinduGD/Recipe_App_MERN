@@ -1,8 +1,14 @@
 import React from "react";
 import { useRecipeContext } from "../hooks/useRecipeContext";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const { recipes, dispatch } = useRecipeContext();
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/add-recipe");
+  };
 
   console.log(recipes);
   return (
@@ -11,7 +17,10 @@ function Home() {
         <p className="font-crimsonPro  text-[23px] font-medium sm:text-[40px]">
           Manage Your Recipes
         </p>
-        <button className="px-[20px] py-[10px] bg-[#373538] font-crimsonPro text-white">
+        <button
+          className="px-[20px] py-[10px] bg-[#373538] font-crimsonPro text-white "
+          onClick={handleClick}
+        >
           Add a Recipe
         </button>
       </div>
@@ -23,7 +32,7 @@ function Home() {
                 <div className="relative w-full pt-[100%]">
                   <img
                     src={recipe.image.filePath}
-                    alt=""
+                    alt="recipe image"
                     className="absolute top-0 left-0 w-full h-full object-cover rounded-t-sm"
                   />
                 </div>
