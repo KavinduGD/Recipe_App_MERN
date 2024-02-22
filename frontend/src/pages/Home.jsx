@@ -1,6 +1,7 @@
 import React from "react";
 import { useRecipeContext } from "../hooks/useRecipeContext";
 import { useNavigate } from "react-router-dom";
+import recipeAxios from "../baseUrl";
 
 function Home() {
   const { recipes, dispatch } = useRecipeContext();
@@ -10,7 +11,23 @@ function Home() {
     navigate("/add-recipe");
   };
 
-  console.log(recipes);
+  const handleDelete = async (id) => {
+    try {
+      const confirmDelete = window.confirm(
+        "Are you sure you want to delete this recipe?"
+      );
+
+      if (confirmDelete) {
+        const res = await recipeAxios.delete(`/api/recipes/${id}`);
+        if (res.status === 200) {
+          dispatch({ type: "DELETE_RECIPE", payload: id });
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="mt-[20px] ">
       <div className="flex justify-between items-center px-[5px] sm:px-[0] mb-[10px]">
@@ -27,7 +44,10 @@ function Home() {
       <div className="sm:grid sm:grid-cols-4 gap-x-2 gap-y-4">
         {recipes &&
           recipes.map((recipe) => (
-            <div className="sm rounded-md border-2 mb-[10px] sm:mb-0">
+            <div
+              className="sm rounded-md border-2 mb-[10px] sm:mb-0 hover:shadow-2xl  transition-all duration-300 ease-in-out overflow-hidden
+            "
+            >
               <div>
                 <div className="relative w-full pt-[100%]">
                   <img
@@ -44,7 +64,12 @@ function Home() {
                     <button className="px-[35px] py-[8px] sm:px-[20px] sm:py-[5px] bg-[#373538] text-white text-[18px] sm:text-[16px]">
                       Edit
                     </button>
-                    <button className=" px-[35px] py-[8px] sm:px-[20px] sm:py-[5px] bg-[#373538] text-white text-[18px] sm:text-[16px]">
+                    <button
+                      className=" px-[35px] py-[8px] sm:px-[20px] sm:py-[5px] bg-[#373538] text-white text-[18px] sm:text-[16px]"
+                      onClick={() => {
+                        handleDelete(recipe._id);
+                      }}
+                    >
                       Delete
                     </button>
                   </div>
