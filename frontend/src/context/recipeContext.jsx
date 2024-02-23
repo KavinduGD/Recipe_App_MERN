@@ -18,9 +18,15 @@ export const recipeReducer = (state, action) => {
         ),
       };
     case "UPDATE_RECIPE":
-      return state.map((recipe) =>
-        recipe.id === action.payload.id ? action.payload : recipe
-      );
+      console.log(action.payload);
+      return {
+        recipes: state.recipes.map((recipe) =>
+          recipe._id === action.payload._id ? action.payload : recipe
+        ),
+      };
+    // return state.recipes.map((recipe) =>
+    //   recipe._id === action.payload._id ? action.payload : recipe
+    // );
     default:
       return state;
   }
@@ -41,6 +47,7 @@ export const RecipeContextProvider = ({ children }) => {
     getRecipes();
   }, []);
 
+  console.log(state);
   return (
     <RecipeContext.Provider value={{ ...state, dispatch }}>
       {children}

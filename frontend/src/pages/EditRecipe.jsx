@@ -7,9 +7,11 @@ import { CiCircleMinus } from "react-icons/ci";
 import { CgAdd } from "react-icons/cg";
 import { useRecipeContext } from "../hooks/useRecipeContext";
 import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
 
-function AddRecipe() {
+function EditRecipe() {
   const { recipes, dispatch } = useRecipeContext();
+  const { id } = useParams();
 
   const [recipeId, setRecipeId] = useState(0);
   const [recipeName, setRecipeName] = useState("");
@@ -18,6 +20,9 @@ function AddRecipe() {
   const [ingredientName, setIngredientName] = useState("");
   const [ingredientAmount, setIngredientAmount] = useState("");
   const [recipeDes, setRecipeDes] = useState("");
+
+  const [imageChange, setImageChange] = useState(false);
+
   const [imageError, setImageError] = useState("");
   const [CompleteError, setCompleteError] = useState("");
 
@@ -39,6 +44,7 @@ function AddRecipe() {
     setCompleteError("");
 
     if (
+      imageChange &&
       recipeImage.type !== "image/png" &&
       recipeImage.type !== "image/jpg" &&
       recipeImage.type !== "image/jpeg"
@@ -69,11 +75,11 @@ function AddRecipe() {
     console.log(formData);
 
     try {
-      const res = await recipeAxios.post("/api/recipes/", formData);
-      if (res.status === 201) {
-        dispatch({ type: "ADD_RECIPE", payload: res.data });
+      const res = await recipeAxios.patch(`/api/recipes/${id}`, formData);
+      if (res.status === 200) {
+        dispatch({ type: "UPDATE_RECIPE", payload: res.data });
 
-        toast.success("Recipe added successfully", {
+        toast.success("Recipe aUpdated successfully", {
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
@@ -83,10 +89,10 @@ function AddRecipe() {
           progress: undefined,
           theme: "light",
         });
-        setRecipeName("");
-        setRecipeImage(null);
-        setIngredients([]);
-        setRecipeDes("");
+        // setRecipeName("");
+        // setRecipeImage(null);
+        // setIngredients([]);
+        // setRecipeDes("");
       }
     } catch (err) {
       console.log(err);
@@ -95,9 +101,12 @@ function AddRecipe() {
 
   useEffect(() => {
     if (recipes && recipes.length != 0) {
-      setRecipeId(recipes[recipes.length - 1].id + 1);
-    } else {
-      setRecipeId(1);
+      const recipe = recipes.find((recipe) => recipe._id === id);
+      setRecipeId(recipe.id);
+      setRecipeName(recipe.name);
+      setRecipeDes(recipe.description);
+      setIngredients(JSON.parse(recipe.ingredients));
+      setRecipeImage(recipe.image.filePath);
     }
   }, [recipes]);
 
@@ -119,7 +128,11 @@ function AddRecipe() {
               >
                 {recipeImage ? (
                   <img
-                    src={URL.createObjectURL(recipeImage)}
+                    src={
+                      imageChange
+                        ? URL.createObjectURL(recipeImage)
+                        : recipeImage
+                    }
                     alt="recipe image"
                     className="w-full h-full object-cover  "
                   />
@@ -157,6 +170,7 @@ function AddRecipe() {
               className="hidden"
               onChange={(e) => {
                 setRecipeImage(e.target.files[0]);
+                setImageChange(true);
               }}
             />
           </div>
@@ -309,4 +323,4 @@ function AddRecipe() {
   );
 }
 
-export default AddRecipe;
+export default EditRecipe;

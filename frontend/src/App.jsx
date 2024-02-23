@@ -3,6 +3,7 @@ import Navbar from "./component/Navbar";
 import Home from "./pages/Home";
 import AddRecipe from "./pages/AddRecipe";
 import SingleRecipe from "./pages/SingleRecipe";
+import EditRecipe from "./pages/EditRecipe";
 
 function App() {
   return (
@@ -14,8 +15,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/add-recipe" element={<AddRecipe />} />
             <Route path="/recipe/:id" element={<SingleRecipe />} />
-            {/* <Route path="/manage" element={<Manage />} /> */}
-            {/* <Route path="/refresh" element={<Refresh />} /> */}
+            <Route path="/edit-recipe/:id" element={<EditRecipe />} />
           </Routes>
         </div>
       </BrowserRouter>

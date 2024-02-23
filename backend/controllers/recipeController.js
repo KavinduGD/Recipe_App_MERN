@@ -98,7 +98,7 @@ const editRecipe = async (req, res) => {
 
       fs.unlinkSync(req.file.path);
     }
-
+    const rid = recipe.id;
     name = name ? name : recipe.name;
     ingredients = ingredients ? ingredients : recipe.ingredients;
     description = description ? description : recipe.description;
@@ -107,6 +107,7 @@ const editRecipe = async (req, res) => {
     const updatedRecipe = await Recipe.findByIdAndUpdate(
       id,
       {
+        id: rid,
         name,
         ingredients,
         description,
