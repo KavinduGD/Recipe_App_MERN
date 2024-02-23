@@ -113,7 +113,7 @@ function EditRecipe() {
   return (
     <div className="flex flex-col font-roboto mt-[10px] mb-[20px]">
       <p className="text-[40px] font-crimsonPro font-medium flex justify-center sm:justify-start">
-        Add Your Recipe
+        Edit Recipe
       </p>
       <div className="flex flex-col sm:flex-row  gap-[30px]">
         <div className="flex justify-center sm:justify-start">
