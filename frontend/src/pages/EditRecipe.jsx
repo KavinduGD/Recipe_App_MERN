@@ -316,7 +316,7 @@ function EditRecipe() {
           className="text-white bg-[#3D2D30] w-[100%]  sm:w-[200px] font-semibold py-[10px]"
           onClick={createRecipe}
         >
-          Add Recipe
+          Edit Recipe
         </button>
       </div>
     </div>
