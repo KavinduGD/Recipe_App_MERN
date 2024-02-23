@@ -16,6 +16,14 @@ function App() {
             <Route path="/add-recipe" element={<AddRecipe />} />
             <Route path="/recipe/:id" element={<SingleRecipe />} />
             <Route path="/edit-recipe/:id" element={<EditRecipe />} />
+            <Route
+              path="/manage"
+              element={
+                <p className="mt-[30px] text-center text-[40px] font-bold text-red-700">
+                  Just a dummy page
+                </p>
+              }
+            />
           </Routes>
         </div>
       </BrowserRouter>

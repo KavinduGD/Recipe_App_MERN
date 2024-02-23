@@ -101,6 +101,14 @@ function Home() {
               </div>
             </div>
           ))}
+
+        {recipes.length === 0 && (
+          <div className="flex justify-center items-center w-full h-[300px]">
+            <p className="font-crimsonPro text-[40px] sm:text-[60px] text-[#373538]">
+              No Recipes Found
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
