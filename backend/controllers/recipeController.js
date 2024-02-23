@@ -17,6 +17,8 @@ const addRecipe = async (req, res) => {
   try {
     const { id, name, ingredients, description } = req.body;
 
+    console.log(ingredients);
+
     if (!id || !name || !ingredients || !description || !req.file) {
       fs.unlinkSync(req.file.path);
       return res.status(400).json({ message: "All fields are required" });

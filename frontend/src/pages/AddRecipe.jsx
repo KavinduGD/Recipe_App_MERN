@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdCloudUpload } from "react-icons/md";
 import { FaImage } from "react-icons/fa";
 import { RiDeleteBin5Fill } from "react-icons/ri";
@@ -10,21 +10,26 @@ import { useRecipeContext } from "../hooks/useRecipeContext";
 function AddRecipe() {
   const { recipes, dispatch } = useRecipeContext();
 
+  const [recipeId, setRecipeId] = useState(0);
+  const [recipeName, setRecipeName] = useState("");
   const [recipeImage, setRecipeImage] = useState();
-  const [Ingredients, setIngredients] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
   const [ingredientName, setIngredientName] = useState("");
   const [ingredientAmount, setIngredientAmount] = useState("");
+  const [recipeDes, setRecipeDes] = useState("");
 
   const createRecipe = async () => {
     console.log("createRecipe");
-    const recipeName = document.getElementById("recipeName").value;
-    const recipeDes = document.getElementById("recipeDes").value;
+
     const formData = new FormData();
-    formData.append("id", 478);
+    formData.append("id", recipeId);
     formData.append("name", recipeName);
     formData.append("description", recipeDes);
-    formData.append("ingredients", JSON.stringify(Ingredients));
+    formData.append("ingredients", JSON.stringify(ingredients));
     formData.append("image", recipeImage);
+
+    console.log(formData);
+
     try {
       const res = await recipeAxios.post("/api/recipes/", formData);
       if (res.status === 201) {
@@ -34,6 +39,16 @@ function AddRecipe() {
       console.log(err);
     }
   };
+
+  console.log(ingredients);
+
+  useEffect(() => {
+    if (recipes && recipes.length != 0) {
+      setRecipeId(recipes[recipes.length - 1].id + 1);
+    } else {
+      setRecipeId(1);
+    }
+  }, [recipes]);
 
   return (
     <div className="flex flex-col font-roboto mt-[10px] mb-[20px]">
@@ -103,6 +118,10 @@ function AddRecipe() {
               id="recipeName"
               placeholder="Recipe Name"
               className="w-full h-[50px] border-2 border-solid border-gray-300 rounded-[6px] px-[10px] focus:outline-none "
+              value={recipeName}
+              onChange={(e) => {
+                setRecipeName(e.target.value);
+              }}
             />
           </div>
           <div className="mt-[10px]">
@@ -111,11 +130,11 @@ function AddRecipe() {
             </label>
             <ul
               className={`list-decimal pl-[40px] ${
-                Ingredients.length ? "mb-[5px]" : ""
+                ingredients.length ? "mb-[5px]" : ""
               }`}
             >
-              {Ingredients &&
-                Ingredients.map((ingredient) => (
+              {ingredients.length != 0 &&
+                ingredients.map((ingredient) => (
                   <li key={ingredient.name}>
                     <div className="flex  justify-between items-center">
                       <div className="flex gap-[30px] items-center">
@@ -176,7 +195,6 @@ function AddRecipe() {
                 className="px-[2px] py-[2px] rounded-full bg-[#3D2D30] text-white items-center justify-center flex"
                 onClick={() => {
                   setIngredients((prev) => {
-                    console.log(prev);
                     return [
                       ...prev,
                       { name: ingredientName, amount: ingredientAmount },
@@ -199,6 +217,10 @@ function AddRecipe() {
               id="recipeDes"
               placeholder="Description"
               className="w-full h-[167px] border-2 border-solid border-gray-300 rounded-[6px] px-[10px] focus:outline-none "
+              value={recipeDes}
+              onChange={(e) => {
+                setRecipeDes(e.target.value);
+              }}
             ></textarea>
           </div>
         </div>

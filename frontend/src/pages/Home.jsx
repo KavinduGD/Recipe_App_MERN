@@ -1,6 +1,6 @@
 import React from "react";
 import { useRecipeContext } from "../hooks/useRecipeContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import recipeAxios from "../baseUrl";
 
 function Home() {
@@ -49,13 +49,15 @@ function Home() {
             "
             >
               <div>
-                <div className="relative w-full pt-[100%]">
-                  <img
-                    src={recipe.image.filePath}
-                    alt="recipe image"
-                    className="absolute top-0 left-0 w-full h-full object-cover rounded-t-sm"
-                  />
-                </div>
+                <Link to={`/recipe/${recipe._id}`}>
+                  <div className="relative w-full pt-[100%]">
+                    <img
+                      src={recipe.image.filePath}
+                      alt="recipe image"
+                      className="absolute top-0 left-0 w-full h-full object-cover rounded-t-sm"
+                    />
+                  </div>
+                </Link>
                 <div className="flex flex-col px-[5px] pb-[10px]">
                   <p className="font-crimsonPro text-[35px] sm:text-[20px] ">
                     {recipe.name}
