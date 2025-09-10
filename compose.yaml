@@ -1,0 +1,26 @@
+name: recipe-app
+
+services:
+  backend:
+    build:
+      context: ./backend # path to your backend folder
+    ports:
+      - 3000:3000
+    env_file:
+      - ./backend/.env # backend environment variables
+    networks:
+      - recipe-net
+
+  frontend:
+    build:
+      context: ./frontend # path to your frontend folder
+    ports:
+      - "5173:80" # expose frontend on localhost:5173
+    depends_on:
+      - backend
+    networks:
+      - recipe-net
+
+networks:
+  recipe-net:
+    driver: bridge

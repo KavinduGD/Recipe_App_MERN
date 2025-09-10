@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const recipeAxios = axios.create({
-  baseURL: "https://recipe-app-mern-op0c.onrender.com",
+  baseURL: "http://recipe-alb-370883967.us-east-1.elb.amazonaws.com:3000",
 });
 
 export default recipeAxios;
